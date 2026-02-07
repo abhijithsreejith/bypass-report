@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Error Found</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        
+        /* Scam Screen Styles */
+        #scam-screen { text-align: center; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border-top: 10px solid #d32f2f; }
+        .warning-icon { font-size: 50px; color: #d32f2f; margin-bottom: 10px; }
+        .scam-btn { background: #d32f2f; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+
+        /* Valentine Card Styles (Hidden initially) */
+        #valentine-card { display: none; text-align: center; background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 64, 129, 0.2); width: 350px; border: 2px solid #ffc1e3; }
+        img { width: 180px; height: auto; border-radius: 20px; margin-bottom: 20px; }
+        h1 { color: #ff4081; font-size: 24px; margin-bottom: 30px; }
+        
+        .btn-container { display: flex; justify-content: center; gap: 20px; height: 60px; position: relative; }
+        button { padding: 12px 25px; font-size: 18px; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        
+        #yesBtn { background-color: #ff4081; color: white; box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3); }
+        #noBtn { background-color: #f0f0f0; color: #555; position: absolute; left: 55%; }
+        
+        /* Confetti Effect */
+        .confetti { position: fixed; width: 10px; height: 10px; background-color: #f2d74e; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+    <div id="scam-screen">
+        <div class="warning-icon">⚠️</div>
+        <h2>System Alert: Unresolved Scam Found</h2>
+        <p>A malicious valentine-bypass attempt has been detected on your device.</p>
+        <button class="scam-btn" onclick="startSurprise()">CLICK TO FIX BYPASS</button>
+    </div>
+
+    <div id="valentine-card">
+        <img id="main-img" src="https://media.tenor.com/KGnViErYaD8AAAAi/abra%C3%A7ourso.gif" alt="Teddy Bear">
+        <h1 id="headline">My Cutiee Tanuluuu, will you be my Valentine?</h1>
+        <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const scamScreen = document.getElementById('scam-screen');
+        const valentineCard = document.getElementById('valentine-card');
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainImg = document.getElementById('main-img');
+        const headline = document.getElementById('headline');
+
+        // Transition from Scam to Valentine
+        function startSurprise() {
+            scamScreen.style.display = 'none';
+            valentineCard.style.display = 'block';
+            document.body.style.backgroundColor = '#fff0f6';
+            
+            // Set initial Teddy Bear image
+            mainImg.src = "https://media.tenor.com/KGnViErYaD8AAAAi/abra%C3%A7ourso.gif"; 
+        }
+
+        // The running "No" button logic
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // The "Yes" click logic
+        yesBtn.addEventListener('click', () => {
+            headline.innerHTML = "I KNEW IT! ❤️<br>See you soon, Sweethearttt!";
+            mainImg.src = "https://media1.tenor.com/m/Bq89l_QP5HcAAAAC/dudu-flow-kiss-cute-dudu.gif"; // Excited Teddy Bear
+            noBtn.style.display = 'none';
+            createConfetti();
+        });
+
+        function createConfetti() {
+            for(let i=0; i<50; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = ['#ff4081','#ff80ab','#ff1744'][Math.floor(Math.random()*3)];
+                conf.style.transform = `rotate(${Math.random()*360}deg)`;
+                document.body.appendChild(conf);
+                
+                let pos = 0;
+                const id = setInterval(() => {
+                    if (pos > 100) {
+                        clearInterval(id);
+                        conf.remove();
+                    } else {
+                        pos += 1;
+                        conf.style.top = pos + 'vh';
+                    }
+                }, 20);
+            }
+        }
+    </script>
+</body>
+</html>
